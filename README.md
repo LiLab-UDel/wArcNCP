@@ -50,7 +50,7 @@ __The four scripts below (fig*.m) are used to generate Figures 1 to 4 in the pap
   Subroutine used in __fig1_O2Ar_hist_map_yearly.m__ to calculate the statistics reported in the Taylor diagram
   
 ## 3. Data
-__All the data used for figure generation can be found in the _"./Data"_ folder__
+__All the data used for figure generation can be found in the _"./data"_ folder__
 * __cmap_NCP.mat__
   
   The RGB data used in __fig1_O2Ar_hist_map_yearly.m__ and __fig2_NCP_yr_map.m__ to create a self-designed _NCP_ colormap
