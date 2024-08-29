@@ -11,7 +11,7 @@
 clc; clear; close all; info_params;
 %==========================================================
 % Edit the following based on user's purpose
-ffig = 'fig02_NCP_yr_map';
+ffig = [ffig_dir 'fig02_NCP_yr_map'];
 %==========================================================
 %#######################
 %## figure properties ##
@@ -24,7 +24,7 @@ fs= 7;
 %## (a-g) year-to-year NCP maps #
 %################################
 load(fmap); load(fcmap_NCP)
-NCP = maps.NCP(:,:,maps.years>2014);  
+NCP = maps.NCP(:,:,maps.years>=af15(1));  
 NCP(NCP<-1E6) = NaN;
 [NCP_adj,c_adj] = fun_NCP_adj(NCP      ,NCP_linrg,NCP_linrg*8);
 [cticks ,~    ] = fun_NCP_adj(NCP_ticks,NCP_linrg,NCP_linrg*8);
@@ -43,7 +43,7 @@ for ky = 1:Naf15
 end
 hco = colorbar('position',[0.08 fgy-fgdh+0.01 0.019 fgh+fgdh*0.7]);
 set(hco,'ticks',cticks,'ticklabels',NCP_ticks,'Fontsize',fs-1)
-title(hco,{'NCP','(mmol C m^{-2} d^{-1})'},'Fontsize',fs-1)
+title(hco,{'NCP',unit_NCP},'Fontsize',fs-1)
 
 %####################
 %## (h) K-means map #
