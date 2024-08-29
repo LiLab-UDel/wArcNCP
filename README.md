@@ -11,7 +11,7 @@ __Contact information:__ The [Computational Oceanography Lab](https://sites.udel
 > ```
 > addpath(genpath('/home/m_map/'))
 > ```
-__The four scripts below (fig*.m) are used to generate Figures 1 to 4 in the paper, respectively__
+__The four scripts below (fig*.m) are used to generate Figures 1 to 4 in the paper main text, respectively__
 * __fig1_O2Ar_hist_map_yearly.m__
   
   __Figure 1:__ (a-c) _In situ_ data availability; (d-e) Machine learning model performance evaluation
@@ -30,6 +30,27 @@ __The four scripts below (fig*.m) are used to generate Figures 1 to 4 in the pap
   
   __Figure 4:__ (a) Diagram of e-ratio against _<sub>int</sub>NPP_; (b-c) Time series of integrated spatial area (unit: 10<sup>4</sup> km<sup>2</sup>) above
   local _<sub>int</sub>NCP_ or e-ratio thresholds
+
+__The five scripts below (figS*.m) are used to generate Figures S1 to S6 in the supplementary information__
+* __figS1S2_SSS_SST_match.m__
+
+  __Figures S1 and S2:__ (a-g) Time series of SSS or SST; (h) 1:1 data density plot
+
+* __figS3_RF_split.m__
+
+  __Figures S3:__ Sensitivity experiments of training-testing splitting ratio
+
+* __figS4_obs_mod_1to1.m__
+
+  __Figures S4:__ Observation-model comparison of (1) training and (b) testing
+
+* __figS5_var_impot_map.m__
+
+  __Figures S5:__ (a) Relative importance of predictors ranked by RF; (b) Map of dominant predictors from perturbation analysis
+
+* __figS6_KMeans_eval.m__
+
+  __Figures S6:__ (a) Elbow and (4) Silhouette curves for different clusters
   
 ## 2. Functions and Subroutines
 * __add_taylordiag.m__
