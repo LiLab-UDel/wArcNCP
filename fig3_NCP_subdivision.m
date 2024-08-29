@@ -11,7 +11,7 @@
 clc; clear; close all; info_params
 %==========================================================
 % Edit the following based on user's purpose
-ffig = 'fig03_NCP_subreg_time_series';
+ffig = [ffig_dir 'fig03_NCP_subreg_time_series'];
 %==========================================================
 %#######################
 %## figure properties ##
@@ -23,10 +23,10 @@ fs= 5.5;  sz = 5;
 %##################
 %##  Load data   ##
 %##################
-load(fmap); tid = find(maps.years>2014);
-NCP = reshape(maps.NCP(:,:,tid),[411*411 7]); NCP(NCP<-1E6) = 0;
-NPP = reshape(maps.NPP(:,:,tid),[411*411 7]); NPP(NPP<-1E6) = 0;
-owa = reshape(maps.owa(:,:,tid),[411*411 7]);
+load(fmap); tid = find(maps.years>=af15(1));
+NCP = reshape(maps.NCP(:,:,tid),[411*411 Naf15]); NCP(NCP<-1E6) = 0;
+NPP = reshape(maps.NPP(:,:,tid),[411*411 Naf15]); NPP(NPP<-1E6) = 0;
+owa = reshape(maps.owa(:,:,tid),[411*411 Naf15]);
 
 %##################
 %##  Make plots  ##

@@ -11,7 +11,7 @@
 clc; clear all; close all; info_params;
 %==========================================================
 % Edit the following based on user's purpose
-ffig = 'fig04_e_ratio_contrast';
+ffig = [ffig_dir 'fig04_e_ratio_contrast'];
 %==========================================================
 %#######################
 %## figure properties ##
@@ -106,15 +106,9 @@ for kK=1:2
           'ylim',[-5 100],'ytick',0:20:130); box on;  
   text(2003.3,96,plabels{kK+1},'FontSize',fs+1,'fontweight','bold','vert','top','hori','left');
   text(2004.8,94.9,desc,'FontSize',fs,'fontweight','bold','vert','top','hori','left');
-  if kK==3;
-    ylabel('Area extent above threshold (10^4 km^2)',...
-            'pos',[2001.5 100 1],'fontsize',fs,'fontweight','bold');
-    xlabel('year','fontsize',fs,'fontweight','bold');
-    set(gca,'xticklabel',ally_yy,'XTickLabelRotation',0);
-  end
   hp = patch([ally ally(end:-1:1)],[qua(:,1);qua(end:-1:1,3)]','k'); hold on;
   set(hp,'facecolor',[1 1 1]*0.95,'edgecolor','none');
-  plot([bf15 2015],qua(1:13,2),'k--','linewidth',1.); 
+  plot([bf15 2015],qua(1:13,2),'k--','linewidth',1.)
   plot(af15,qua(idaf15,2),'k-','linewidth',1.2)
 end
 ylabel('Area extent above threshold (10^4 km^2)',...
