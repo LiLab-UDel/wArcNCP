@@ -1,10 +1,11 @@
 % Parameter information for 
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean" 
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al.
 %
 % Reference:
-%   Zhou et al. ...
+%   Zhou et al. (submitted to GRL)
 %
 %         Author: Yun Li, UDel, Apr-24-2024
 
@@ -52,7 +53,7 @@ udwy.nams = {...                           % cruises of underway measurements
 fobs = './data/compiled_obs_and_ML_eval.mat';     % observation and ML results
 fmap = './data/grid_and_mapped_products.mat';     % model grid and output
 fKMs = './data/KMeans_eval.mat';                  % KMeans evaluation
-fspl = './data/RF_split_tst_msk.mat';             % training and testing split test
+fspl = './data/RF_split_tst.mat';                 % training and testing split test
 fcmap_NCP = './data/cmap_NCP.mat';                % colormap for NCP
 fcmap_TSdens = './data/cmap_TSdens.mat';          % colormap for SSS & SST density plot
 fcmap_NCPdens = './data/cmap_NCPdens.mat';        % colormap for NCP density plot

@@ -1,11 +1,12 @@
 % Create Figures S1 and S2 of 
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 8 subpanels:
 %   - 7 subpanels of time series of SSS or SST
 %   - 1 subpanel  of 1:1 data density plot
 %
-%         Author: Tianyu Zhou, Aug/25/2024
+%         Author: Tianyu Zhou, UDel, Aug/25/2024
 %         Modified by: Yun Li, UDel, Aug/25/2024
 
 clc; clear; close all; info_params
@@ -145,4 +146,4 @@ text(vlims(1),vlims(2)+0.25*diff(vlims),...     % colorbar title
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

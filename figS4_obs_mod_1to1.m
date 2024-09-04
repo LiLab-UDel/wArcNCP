@@ -1,11 +1,12 @@
 % Create Figures S4 of
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 2 subpanels:
 %   - Observation-model comparison of training
 %   - Observation-model comparison of testing
 %
-%         Author: Tianyu Zhou, Aug/25/2024
+%         Author: Tianyu Zhou, UDel, Aug/25/2024
 %         Modified by: Yun Li, UDel, Aug/25/2024
 
 clc; clear; close all; info_params
@@ -83,11 +84,11 @@ end
 xlabel(['Observation-derived NCP ',unit_NCP],'pos',[dlims(1) dlims(1)-20])
 text(dlims(1),dlims(2)+45,...     % colorbar title
     ['Number of data in ',num2str(dbin),' x ',num2str(dbin),...
-     ' ',unit_NCP,' bin'],...
+     ' ',unit_NCP(2:end-1),' bin'],...
      'fontsize',fsize,'horiz','cen','vert','bot')
 
 %###################
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

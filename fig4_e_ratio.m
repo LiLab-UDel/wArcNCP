@@ -1,11 +1,12 @@
 % Create Figure 4 of
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of
 %   - 1 subpanel  of the e-ratio vs NPP diagram 
 %   - 2 subpanels of yearly area extent above threshholds
 %
-%         Author: Tianyu Zhou, Apr/22/2024
+%         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/24/2024
 
 clc; clear all; close all; info_params;
@@ -51,7 +52,7 @@ axes('Position',[fgx fgy fgw fgh]); hold on; box on;
 set(gca,'fontsize',fs,...
         'yaxisloc','left','ylim',[0.07 0.5],'ytick',0.1:0.1:0.5,...
         'xaxisloc','bot' ,'xlim',[-1 22]);
-xlabel('Biological production _{int}NPP (Tg C)','fontsize',fs,'fontweight','bold');
+xlabel('Net primary production _{int}NPP (Tg C)','fontsize',fs,'fontweight','bold');
 ylabel('e-ratio','fontsize',fs,'fontweight','bold');
 xx = 0.01:0.1:30; ee = 0:0.03:0.6; [xx,ee] = meshgrid(xx,ee);
 NCP_cts = [0.1  0.4  1     2      3      5      7      9];
@@ -119,4 +120,4 @@ set(gca,'xticklabel',ally_yy,'XTickLabelRotation',0);
 %#################
 %## save figure ##
 %#################
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

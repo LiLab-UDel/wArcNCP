@@ -1,14 +1,15 @@
 % Create Figures S5 of
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 2 subpanels:
 %   - Relative importance of predictors ranked by RF
 %   - Map of dominant predictors from perturbation analysis
 %  
-%         Author: Tianyu Zhou, Aug/25/2024
+%         Author: Tianyu Zhou, UDel, Aug/25/2024
 %         Modified by: Yun Li, UDel, Aug/25/2024
 
-clc; clear; clf; info_params
+clc; clear; close all; info_params
 %==========================================================
 % Edit the following based on user's purpose
 ffig = [ffig_dir 'figS5_var_impot_map'];
@@ -35,9 +36,21 @@ cmap(7,:) = [114 163 254]/256; % light pink
 load(fmap); load(fobs);
 xticklabels = out.ML.names; NP = length(xticklabels);
 % find the most important predictor
-wrk = abs(out.ML.pert_NCPstd(:,:,2:end) - out.ML.pert_NCPstd(:,:,1));
+wrk= abs(out.ML.pert_NCPstd(:,:,2:end) - out.ML.pert_NCPstd(:,:,1));
 [~,idx] = max(wrk,[],3); idx = idx+1; % shift with baseline as 1
 var_map = out.ML.pert_idpred(idx); var_map(maps.mask==0) = nan;
+% evaluate the effects on the non-seasonal NCP changes
+[NX,NY] = size(var_map);
+for kv=1:length(out.ML.predictors)
+  tmp(:,:,1  ) = out.ML.pert_NCPstd_nonsea(:,:,1);
+  tmp(:,:,2:3) = out.ML.pert_NCPstd_nonsea(:,:,out.ML.pert_idpred==kv); % select runs
+  tmp = reshape(tmp,[NX*NY,3]);       % reshape for spatial extraction
+  tmp = mean(tmp(var_map==kv,:));     % regionally averaged std
+  disp([out.ML.predictors{kv}, ...
+	'  +20% => pertb ' num2str((tmp(2)./tmp(1)-1)*100,'%3.2f%%') ...
+	', -20% => pertb ' num2str((tmp(3)./tmp(1)-1)*100,'%3.2f%%')]);
+  clear tmp
+end
 
 %##################################
 %## (a) RF predictor importance  ##
@@ -67,5 +80,5 @@ text(-0.16,0.13,plabels{2},'FontSize',fsize,'FontWeight','bold','hori','left','v
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)
 

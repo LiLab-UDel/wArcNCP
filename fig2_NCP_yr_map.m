@@ -1,11 +1,12 @@
 % Create Figure 2 of
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 
 %   - 7 subpanels of yearly distribution of NCP
 %   - 1 subpanel of kmeans clusters
 %
-%         Author: Tianyu Zhou, Apr/22/2024
+%         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/27/2024
 
 clc; clear; close all; info_params;
@@ -65,4 +66,4 @@ m_text(360-170,70,'C1','color','w','Fontsize',fs,'fontweight','bold')
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

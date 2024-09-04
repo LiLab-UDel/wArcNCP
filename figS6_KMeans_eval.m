@@ -1,10 +1,11 @@
 % Create Figures S6 of 
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 1 panel: 
 %   - Elbow and Silhouette curves for different clusters
 %
-%         Author: Tianyu Zhou, Aug/25/2024
+%         Author: Tianyu Zhou, UDel, Aug/25/2024
 %         Modified by: Yun Li, UDel, Aug/25/2024
 
 clear; clc; close all; info_params
@@ -25,8 +26,6 @@ NCP = reshape(NCP,[NX*NY NT]); NCP = NCP(idd,:);
 %#######################
 %## KMeans evaluation ##
 %#######################
-%var_uep = nan(1,ik_max);
-%silh    = nan(1,ik_max);
 for ik = 1:ik_max
     a = KM.dista(:,:,ik); a = a(idd); % distance to cluster centriod
     b = KM.distb(:,:,ik); b = b(idd); % distance to neighbor centriod
@@ -35,13 +34,12 @@ for ik = 1:ik_max
         NCP_ct_tmp = median(NCP(cls==icls,:),1);
         NCP_ct(cls==icls,:) = repmat(NCP_ct_tmp,[sum(cls==icls) 1]);
     end
-    %b1 = min(b,[],2,'omitnan');  % reproduce MATLAB
     silh_tmp = (b-a)./max([b,a],[],2);
     silh(ik) = median(silh_tmp);
-    var_uep(ik) = sum((NCP - NCP_ct).^2,'all');
+    var_uep(ik) = sum((NCP - NCP_ct).^2,'all');  % unexplained variance
 end
 var_pct = 100*(var_uep(1)-var_uep)...
-	    ./(var_uep(1)-var_uep(end));
+	    ./(var_uep(1)-var_uep(end));         % relative contribution 
 
 %###############################
 %## elbow and Silhouette plot ##
@@ -64,4 +62,4 @@ set(gca,'fontsize',12,...
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

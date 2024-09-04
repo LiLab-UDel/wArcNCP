@@ -1,11 +1,12 @@
 % Create Figure 3 of
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of
 %   - 4 subpanels of regional int_NCP, int_NPP, and open water area
 %   - 4 subpanels of regional e-ratio
 %
-%         Author: Tianyu Zhou, Apr/22/2024
+%         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/27/2024
 
 clc; clear; close all; info_params
@@ -38,9 +39,9 @@ YLIM2 = [   0 ycut]; YTICK2 = 0:0.1:0.2; YTICKL2={'0.0','0.1',''};
 YLIM3 = [   0   32]; YTICK3 = linspace(0,32,6);
 YLIM4 = [0.05 0.55]; YTICK4 = 0:0.1:0.6;
 XLIM  = [2014.4 2021.6];
-disp('Region   total     AOWA      int_NCP   int_NPP    e_ratio    OWA-int_NCP     slope')
-disp('      (1E4 km2)  (1E4 km2)  (Tg C)    (Tg C)                              (Tg C/1E4 km2)');
-disp('---------------------------------------------------------------------------')
+disp('Region   total     AOWA      int_NCP   int_NPP    e_ratio    OWA-int_NCP     slope         power-law expo')
+disp('      (1E4 km2)  (1E4 km2)  (Tg C)    (Tg C)                              (Tg C/1E4 km2)    PRELIMINARY  ');
+disp('---------------------------------------------------------------------------------------------------------')
 for kc = 1:5
   %-----------------------
   % regional integration
@@ -67,8 +68,10 @@ for kc = 1:5
   % Linear-fit:  
   %   intNCP = a * owa + b
   %------------------------------------------------
-  [rr,pp] = corr(owa_yr(:),NCP_yr(:));    % correlation
-  cff_p = polyfit(owa_yr(:),NCP_yr(:),1); % linear regression
+  [rr,pp] = corr(owa_yr(:),NCP_yr(:));      % correlation
+  cff_lin = polyfit(owa_yr(:),NCP_yr(:),1); % linear regression
+  cff_pow = polyfit(log10(owa_yr(:)),...
+                    log10(NCP_yr(:)),1);    % preliminary power-law regression (not shown)
   disp([clsnam ...
 	  '   ' num2str(cnum*36/1e4,'%4.2f') ...
 	  '   ' num2str(mean(owa_yr),'%4.2f') '+/' num2str(std(owa_yr),'%4.2f') ...
@@ -76,7 +79,8 @@ for kc = 1:5
 	  '   ' num2str(mean(NPP_yr),'%4.2f') '+/' num2str(std(NPP_yr),'%4.2f') ...
 	  '   ' num2str(mean(eratio_yr),'%4.2f') '+/' num2str(std(eratio_yr),'%4.2f') ...
 	  '   (' num2str(rr,'%3.2f') ', ' num2str(pp,'%6.4f') ')' ...
-	  '   ' num2str(cff_p(1),'%6.2f') ...
+	  '   ' num2str(cff_lin(1),'%6.3f') ...
+	  '   ' num2str(cff_pow(1),'%6.3f') ...
 	  ] )
   if kc>4; continue; end
 
@@ -147,4 +151,4 @@ end
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off')
-print('-dpng','-r500',ffig)
+%print('-dpng','-r500',ffig)

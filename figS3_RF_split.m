@@ -1,11 +1,12 @@
 % Create Figures S3 of 
-%    "The Responses of Net Community Production to
-%     Sea ice Reduction in the Western Arctic Ocean"
+%    "Enhanced Net Community Production with Sea Ice Loss
+%     in the Western Arctic Ocean Uncovered by
+%     Machine-learning-based Mapping"
 % by Zhou et al. The figure consists of 1 panel:
 %   - sensitivity experiments of training-testing 
 %     splitting ratio
 %
-%         Author: Tianyu Zhou, Aug/25/2024
+%         Author: Tianyu Zhou, UDel, Aug/25/2024
 %         Modified by: Yun Li, UDel, Aug/25/2024
 
 clc; clear; close all; info_params
@@ -24,34 +25,10 @@ xticks = 0.1:0.2:0.9;
 %####################################
 %## load training and testing data ##
 %####################################
-load(fspl,'msk','y_in','y_out');
-frac = unique(sum(msk==1))./length(y_in); % varying fraction of training data
-nf = length(frac);                        % number of train_data fraction
-ne = size(msk,2)./nf;                     % number of experiments per fraction
-
-%#########################
-%## calculate the score ##
-%#########################
-% data binning to reduce biases from data uneven distr.
-bins = linspace(-40,200,100); dx = mean(diff(bins));
-y_in = repmat(y_in(:),[1 ne.*nf]);
-bids = ceil((y_in - bins(1))./dx);
-for kb = 1:length(bins)
-   cff = (bids==kb).*(msk==1); cff(cff==0)=nan;
-   yb_in( kb,:,1) = mean(y_in .*cff,'omitnan');  % binning of training input
-   yb_out(kb,:,1) = mean(y_out.*cff,'omitnan');  % binning of training output
-   cff = (bids==kb).*(msk==2); cff(cff==0)=nan;
-   yb_in( kb,:,2) = mean(y_in .*cff,'omitnan');  % binning of testing  input
-   yb_out(kb,:,2) = mean(y_out.*cff,'omitnan');  % binning of testing  output
-end
-% calculate score
-yb_in(isnan(yb_out)) = nan;
-SC = 1 - std(yb_out-yb_in,'omitnan').^2./(std(yb_in,'omitnan').^2);
-SC = squeeze(SC);
-tr_mean = mean(reshape(SC(:,1),[ne,nf]));
-ts_mean = mean(reshape(SC(:,2),[ne,nf]));
-tr_std  =  std(reshape(SC(:,1),[ne,nf]));
-ts_std  =  std(reshape(SC(:,2),[ne,nf]));
+load(fspl);
+frac = spltest.frac;  % training data fraction
+tr_mean = spltest.tr_mean; tr_std = spltest.tr_std; % training scores
+ts_mean = spltest.ts_mean; ts_std = spltest.ts_std; % testing scores
 
 %###############################
 %## score vs split ratio plot ##
@@ -82,5 +59,4 @@ set(gca,'XAxisLoc','top','YAxisLoc','right','Color','none','fontsize',fsize,...
 %##  save figure  ##
 %###################
 set(gcf,'color',[1 1 1],'InvertHardCopy','off');
-print('-dpng','-r500',ffig)
-
+%print('-dpng','-r500',ffig)
