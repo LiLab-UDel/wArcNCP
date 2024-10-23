@@ -8,6 +8,7 @@
 %
 %         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/27/2024
+%                 Tianyu Zhou, UDel, Oct/14/2024
 
 clc; clear; close all; info_params;
 %==========================================================
@@ -38,7 +39,7 @@ for ky = 1:Naf15
   m_pcolor(maps.lon_ful,maps.lat_ful,NCP_wrk); shading flat;
   colormap(cmap); caxis(c_adj)
   m_gshhs_l('patch',ldpatch,'linestyle','none');
-  m_grid('linest','none','linewidth',0.1,'Fontsize',fs-3,'xtick',185:15:360-130)
+  m_grid('linest',':','linewidth',0.1,'Fontsize',fs-3,'xtick',lonticks,'ytick',latticks)
   m_text(200,68,[plabels{ky},' ',num2str(af15(ky))],'fontsize',fs,'fontweight','bold','color','w')
   m_contour(maps.lon_ful,maps.lat_ful,SIC,[1 1],'color','k','linewidth',0.5)
 end
@@ -54,7 +55,7 @@ m_proj('lambert','lon',[lon_str lon_end],'lat',[lat_str lat_end])
 m_pcolor(maps.lon_ful,maps.lat_ful,maps.cluster); shading flat;
 colormap(ha,clscolor);
 m_gshhs_l('patch',ldpatch,'linestyle','none');
-m_grid('linest','none','linewidth',0.1,'Fontsize',fs-3,'xtick',185:15:360-130)
+m_grid('linest',':','linewidth',0.1,'Fontsize',fs-3,'xtick',lonticks,'ytick',latticks)
 m_text(200,68,plabels{8},'fontsize',fs,'fontweight','bold','color','w')
 % text for subdivisions
 m_text(360-178,77,'C4','color','w','Fontsize',fs,'fontweight','bold')

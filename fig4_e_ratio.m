@@ -120,4 +120,5 @@ set(gca,'xticklabel',ally_yy,'XTickLabelRotation',0);
 %#################
 %## save figure ##
 %#################
+set(gcf,'color',[1 1 1],'InvertHardCopy','off');
 %print('-dpng','-r500',ffig)

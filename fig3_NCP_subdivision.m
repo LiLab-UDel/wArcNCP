@@ -8,6 +8,7 @@
 %
 %         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/27/2024
+%                 Tianyu Zhou, UDel, Oct/14/2024
 
 clc; clear; close all; info_params
 %==========================================================
@@ -48,7 +49,7 @@ for kc = 1:5
   %-----------------------
   if kc<5
     gid = find(maps.cluster==kc); 
-    clsnam = [' C' num2str(kc)];
+    clsnam = ['C' num2str(kc)];
     mcolor = clscolor(kc,:);
   else;
     gid = find(maps.cluster>0); 
@@ -120,6 +121,9 @@ for kc = 1:5
 	  'fontsize',fs+1,'fontweight','bold','horiz','right','vert','top');
   if kc==1; set(gca,'yticklabel',YTICK1); ytickformat('%.1f'); 
             ylabel('Regional production (Tg C)','pos',[2013.1 8.5],'fontsize',fs+1,'FontWeight','bold'); end;
+  % mark broken axis
+  line(XLIM(1)+[1 -1]*0.1,YLIM1(1)+[1 -1]*0.15    ,'color','k','linewidth',0.5,'Clipping','off');
+  line(XLIM(1)+[1 -1]*0.1,YLIM1(1)+[1 -1]*0.15-0.3,'color','k','linewidth',0.5,'Clipping','off');
 
   %------------------------------------------------
   % upper panel - top part overlay (open water)
