@@ -10,7 +10,7 @@
 %
 %         Author: Tianyu Zhou, UDel, Apr/22/2024
 %         Modified by: Yun Li, UDel, Apr/25/2024
-%                                    Aug/28/2024
+%                 Tianyu Zhou, UDel, Oct/17/2024
 
 clc; clear; close all; info_params;
 %==========================================================
@@ -36,6 +36,7 @@ id = find(maps.mask(dt.gid)); di = dt(id,:);     % data within study domain
 di.doy = day(di.date,'dayofyear');
 disp(['     within study region = ' num2str(length(id))])
 dt.doy = day(dt.date,'dayofyear');
+dt.dO2Ar(maps.mask(dt.gid)~=1) = NaN;            % outside study domain
 dt.dO2Ar(dt.doy<obs_str | dt.doy>obs_end) = NaN; % outside the period
 dt.dO2Ar(isnan(dt.bbp)) = NaN;                   % outside the openwater
 dt.dO2Ar(dt.NCP<=-30) = NaN;                     % remove NCP<-30
@@ -61,9 +62,32 @@ for ky = 1:length(af15)+1
     % Normalization of STD and RMSD to hold all years together
     % and calculate data coordinates (mx,my) of the Taylor Diagram
     mx(ky,kK) = STATS(1,2)./STATS(1,1).*STATS(3,2);
-    my(ky,kK) = STATS(1,2)./STATS(1,1).*sin(acos(STATS(3,2))); clear STATS
+    my(ky,kK) = STATS(1,2)./STATS(1,1).*sin(acos(STATS(3,2)));
+    % prepare the stats for printing
+    Nobs(kK)  = length(swrk(:,1));                  % number of obs NCP data
+    oSTD(kK)  = STATS(1,1);                         % standard deviation of obs NCP data
+    Rval(kK)  = STATS(3,2);                         % corr. coeff. between obs and model NCP data
+    Pval(kK)  = STATS(4,2);                         % p-value of corr. coeff.
+    nSTD(kK)  = STATS(1,2)./STATS(1,1);             % normalized STD of model NCP data
+    ncRMSD(kK)= sqrt(my(ky,kK).^2+(1-mx(ky,kK)).^2);% normalized cRMSD between obs and model NCP
+    clear STATS
   end
+  % print stats for each year
+  if ky==1
+    disp('                                       ')
+    disp('ML evaluation report (training,testing)')
+    disp('--------------------------------------------------------------------------')
+    disp('Year    n      obs.STD           R            p          nSTD       ncRMSD')
+  end
+  disp([yy2{ky}...
+   ' ' num2str(Nobs,  '(%.i,%.i)')...
+   ' ' num2str(oSTD,  '(%05.2f,%05.2f)')...
+   ' ' num2str(Rval,  '(%.2f,%.2f)')...
+   ' ' num2str(Pval,  '(%.e,%.e)')...
+   ' ' num2str(nSTD,  '(%.2f,%.2f)')...
+   ' ' num2str(ncRMSD,'(%.2f,%.2f)')]);
 end
+disp('                                       ')
 
 %#############################################
 %## (a) processed NCP data: yearly histogram #
@@ -142,12 +166,12 @@ axes('Position',[fgx-0.05 fgy-fgdh-0.05 fgdw+0.05 fgdw+0.05]); hold on
 % mapped region and bathy
 m_proj('lambert','lon',[lon_str lon_end],'lat',[lat_str lat_end])
 m_gshhs_l('patch',ldpatch,'linestyle','none');
-m_grid('linest',':','linewidth',0.1,'Fontsize',fs-1,'xtick',185:15:360-130)
+m_grid('linest',':','linewidth',0.1,'Fontsize',fs-1,'xtick',lonticks,'ytick',latticks)
 m_text(200,68,['n = ',num2str(size(dt,1))],'fontsize',fs+2,'fontweight','bold','color','w')
 [C,h] = m_contour(maps.lon_ful,maps.lat_ful,maps.Bathy,[-40 -100 -500:-1000:-3500],...
 	'color',ldpatch,'linewidth',0.3);
 % uncomment the line below to manually add bathymetry contours
-%clabel(C,h,'manual','fontsize',fs-1)
+clabel(C,h,'manual','fontsize',fs-1)
 m_scatter(dt.lon,dt.lat,0.5,NCP_adj,'filled')
 colormap(cmap); caxis(c_adj)
 text(-0.115,0.11,plabels{3},'fontsize',fs+1,'fontweight','bold')
@@ -175,11 +199,10 @@ text(mx(end,1),my(end,1),yy2(end),'color','k','fontsize',fs,'fontweight','bold')
 text(mx(end,2),my(end,2),yy2(end),'color',ctscolor,'fontsize',fs+0.5,'fontweight','bold');
 text(0.035,0.7,plabels{4},'fontsize',fs+1,'fontweight','bold')
 % add a legend
-hp = patch([0.18 0.63 0.63 0.18],[0.02 0.02 0.145 0.145],'w');
+hp = patch([0.18 0.4 0.4 0.18],[0.02 0.02 0.145 0.145],'w');
 set(hp,'edgecolor',ldpatch);
-text(0.2,0.09,['all train (n=' num2str(sum(dt.flag==1)) ')'],'fontsize',fs,'fontweight','bold','hori','left','vert','bot','color','k');
-text(0.2,0.03,['all test (n=' num2str(sum(dt.flag==2)) ')'],'fontsize',fs,'fontweight','bold','hori','left','vert','bot','color',ctscolor);
-
+text(0.2,0.09,'Training','fontsize',fs,'fontweight','bold','hori','left','vert','bot','color','k');
+text(0.2,0.03,'Testing','fontsize',fs,'fontweight','bold','hori','left','vert','bot','color',ctscolor);
 %###################
 %##  save figure  ##
 %###################
