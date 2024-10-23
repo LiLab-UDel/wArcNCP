@@ -1,5 +1,8 @@
 function Data=SStats(Cr,Cf)
 % Copyright (c) 2023, Zhaoxu Liu / slandarer
+%
+% Update: add p-values of correlation in the output
+%                    Tianyu Zhou, UDel, Oct/07/2024
 Cr = Cr(:); 
 Cf = Cf(:);
 nanInd = isnan(Cr)|isnan(Cf);
@@ -10,8 +13,8 @@ Cf(nanInd) = [];
 MEAN = mean(Cf);
 STD  = std(Cf,1);
 RMSD = std(Cf-Cr,1);
-COR  = corrcoef(Cf,Cr);
-Data = [MEAN, STD, RMSD, COR(1,2)].';
+[COR,P] = corrcoef(Cf,Cr);
+Data = [MEAN, STD, RMSD, COR(1,2), P(1,2)].';
 
 %% calculation formula of STD RMSD and COR
 % N = length(Cf);

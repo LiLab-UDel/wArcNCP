@@ -28,13 +28,15 @@ addpath(genpath('/home/tyzhou/Toolbox/'))
 %###########################
 lat_str = 65; lon_str = 179.9;             % lower bound of lat and lon
 lat_end = 78; lon_end = 360-140.1;         % upper bound of lat and lon
+lonticks = 185:15:360-130;                 % lon ticks on maps
+latticks = 66:3:78;                        % lat ticks on maps
 
 %########################
 %##  Time range & info ##
 %########################
 obs_mm = 5:11;                             % available months of obs
 obs_str = datenum(0,5,25)-1;               % start date of study period
-obs_end = datenum(0,9, 5)+1;               %   end data of study period
+obs_end = datenum(0,9, 5)-1;               %   end data of study period
 af15 = 2015:2021; Naf15 = length(af15);    % years 2015-2021 for baseline run (after 2015)
 bf15 = 2003:2014; Nbf15 = length(bf15);    % years 2003-2014 for sensitivity run (before 2015)
 ally = 2003:2021; Nally = length(ally);    % all years 2003-2021
