@@ -31,27 +31,35 @@ __The four scripts below (fig*.m) are used to generate Figures 1 to 4 in the pap
   __Figure 4:__ (a) Diagram of e-ratio against _<sub>int</sub>NPP_; (b-c) Time series of integrated spatial area (unit: 10<sup>4</sup> km<sup>2</sup>) above
   local _<sub>int</sub>NCP_ or e-ratio thresholds
 
-__The five scripts below (figS*.m) are used to generate Figures S1 to S6 in the supplementary information__
+__The five scripts below (figS*.m) are used to generate Figures S1 to S9 in the supplementary information__
 * __figS1S2_SSS_SST_match.m__
 
   __Figures S1 and S2:__ (a-g) Time series of _SSS_ or _SST_ between underway measurements and data assimilation products (ECCO2 for SSS and OISST for SST);
   (h) 1:1 data density plot
 
-* __figS3_RF_split.m__
+* __figS4_RF_split.m__
 
-  __Figures S3:__ Sensitivity experiments of training-testing splitting ratio
+  __Figures S4:__ (a) Learning curve; (b) Sensitivity experiments of training-testing splitting ratio
 
-* __figS4_obs_mod_1to1.m__
+* __figS5_obs_mod_1to1_map.m__
 
-  __Figures S4:__ Observation-model comparison of (a) training and (b) testing
+  __Figures S5:__ Observation-model comparison of (a) training and (b) testing; (c) observation- and (d) model-derived _NCP_ comparison
 
-* __figS5_var_impot_map.m__
+* __figS6_var_impot_map.m__
 
-  __Figures S5:__ (a) Relative importance of predictors ranked by the RF model; (b) A map of dominant predictors from perturbation analysis
+  __Figures S6:__ (a) Relative importance of predictors ranked by the RF model; (b) A map of dominant predictors from perturbation analysis
 
-* __figS6_KMeans_eval.m__
+* __figS7_KMeans_eval.m__
 
-  __Figures S6:__ (a) Elbow and (b) Silhouette curves for different clusters
+  __Figures S7:__ (a) Elbow and (b) Silhouette curves for different clusters
+
+* __figS8_NCP_8day_map.m__
+
+  __Figures S8:__ 8-day _NCP_ distribution
+
+* __figS9_NCP_yr_map_03to14.m__
+
+  __Figures S9:__ yearly _NCP_ distribution from 2003 to 2014
   
 ## 2. Functions and Subroutines
 * __add_taylordiag.m__
@@ -83,11 +91,11 @@ __All the data used for figure generation can be found in the _"./data"_ folder_
 
 * __cmap_NCPdens.mat__
 
-  The RGB data used by __figS4_obs_mod_1to1.m__ to create a the 1:1 data density plot for _NCP_
+  The RGB data used by __figS5_obs_mod_1to1.m__ to create a the 1:1 data density plot for _NCP_
   
 * __compiled_obs_and_ML_eval.mat__
   
-  The data used by __fig1_O2Ar_hist_map_yearly.m__, __figS1S2_SSS_SST_match.m__, __figS4_obs_mod_1to1.m__, and __figS5_var_impot_map.m__,
+  The data used by __fig1_O2Ar_hist_map_yearly.m__, __figS1S2_SSS_SST_match.m__, __figS5_obs_mod_1to1.m__, and __figS6_var_impot_map.m__,
   including (1) a table of observations and model output,
   (2) sea ice cover seasonal climatology, and (3) machine learning model performance.
   More details are documented by the "readme" variable in the data file
@@ -101,10 +109,10 @@ __All the data used for figure generation can be found in the _"./data"_ folder_
 
 * __KMeans_eval.mat__
 
-  The data used by __figS6_KMeans_eval.m__ to calculate the relative contribution to data variance and the Silhouette Coefficient.
+  The data used by __figS7_KMeans_eval.m__ to calculate the relative contribution to data variance and the Silhouette Coefficient.
 
 * __RF_split_tst_msk.mat__
-  The data used by __figS3_RF_split.m__ to demonstrate the RF model scores for the different splitting ratios between the training and testing sets.
+  The data used by __figS4_RF_split.m__ to demonstrate the RF model scores for the different splitting ratios between the training and testing sets.
   
 ## Acknowledgment
 This work is supported by the NASA FINESST Program (80NSSC24K0011). We also acknowledge the support provided by the NASA Carbon Cycle Science Program (80NSSC22K0151)
